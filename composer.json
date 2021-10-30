@@ -1,0 +1,36 @@
+{
+    "name": "devmithi/xettlewrapper",
+    "type": "library",
+    "description": "A Xettle wrapper (http://xettle.io)",
+    "keywords": [
+        "xettle",
+        "xettleio",
+        "xettle.io",
+        "package",
+        "XettleIO",
+        "Xettleio"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2",
+        "php-curl-class/php-curl-class": "^9.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "XettleWrapper\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "XettleWrapper\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
