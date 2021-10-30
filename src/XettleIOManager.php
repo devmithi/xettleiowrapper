@@ -13,7 +13,7 @@ class XettleIOManager{
     /**
      * @var string
      */
-    const PRODUCTION_BASE_URL         = 'https://app.xettle.io';
+    const PRODUCTION_BASE_URL         = 'https://api.xettle.io';
     const SANDBOX_BASE_URL            = 'https://uat.xettle.io';
 
     /**

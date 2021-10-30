@@ -99,7 +99,7 @@ abstract class XettleIOApi{
         $curl->get( $url );
 
         if ($curl->error ) {
-            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage );
+            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\nResponse:" . json_encode($curl->response) );
         } else {
             return $curl->response;
         }
@@ -122,10 +122,10 @@ abstract class XettleIOApi{
         $curl->setHeader('Content-Type', 'application/json');
         $curl->setHeader('Accept', 'application/json');
         $curl->setHeader('Signature', $signature);
-        $curl->post( $url, $data );
+        $curl->post( $url, json_encode($data) );
 
         if ($curl->error ) {
-            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage );
+            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\nResponse:" . json_encode($curl->response) );
         } else {
             return $curl->response;
         }
@@ -149,7 +149,7 @@ abstract class XettleIOApi{
         $curl->get( $url );
 
         if ($curl->error ) {
-            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage );
+            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\nResponse:" . json_encode($curl->response) );
         } else {
             return $curl->response;
         }
@@ -164,16 +164,16 @@ abstract class XettleIOApi{
      * @return array
      * @throws XettleIOException
      */
-    protected function upipost( $endpoint, $signature, $data ){
+    protected function upipost( $endpoint, $data ){
         $url            = $this->config['base_url'] . $endpoint;
         $curl           = new Curl();
         $curl->setBasicAuthentication($this->config['client_id'], $this->config['client_secret']);
         $curl->setHeader('Content-Type', 'application/json');
         $curl->setHeader('Accept', 'application/json');
-        $curl->post( $url, $data );
+        $curl->post( $url, json_encode($data) );
 
         if ($curl->error ) {
-            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage );
+            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\nResponse:" . json_encode($curl->response) );
         } else {
             return $curl->response;
         }
