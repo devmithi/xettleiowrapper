@@ -60,15 +60,19 @@ abstract class XettleIOApi{
      * @throws XettleIOException
      */
     protected function call_method( $endpoint, $method, $data = null ){
-        $signature           = $this->get_signature( $endpoint, $method, $data );
-
         $response            = "";
         switch( strtoupper( $method ) ){
             case 'GET':
-                $response    = $this->get( $endpoint, $signature, $data );
+                $response    = $this->get( $endpoint );
                 break;
             case 'POST':
-                $response    = $this->post( $endpoint, $signature, $data );
+                $response    = $this->post( $endpoint, $data );
+                break;
+            case 'UPIGET':
+                $response    = $this->upiget( $endpoint );
+                break;
+            case 'UPIPOST':
+                $response    = $this->upipost( $endpoint, $data );
                 break;
         }
 
@@ -84,7 +88,8 @@ abstract class XettleIOApi{
      * @return array
      * @throws XettleIOException
      */
-    protected function get( $endpoint, $signature ){
+    protected function get( $endpoint ){
+        $signature      = $this->get_signature( $endpoint, 'get', "" );
         $url            = $this->config['base_url'] . $endpoint;
         $curl           = new Curl();
         $curl->setBasicAuthentication($this->config['client_id'], $this->config['client_secret']);
@@ -109,13 +114,62 @@ abstract class XettleIOApi{
      * @return array
      * @throws XettleIOException
      */
-    protected function post( $endpoint, $signature, $data ){
+    protected function post( $endpoint, $data ){
+        $signature      = $this->get_signature( $endpoint, 'post', $data );
         $url            = $this->config['base_url'] . $endpoint;
         $curl           = new Curl();
         $curl->setBasicAuthentication($this->config['client_id'], $this->config['client_secret']);
         $curl->setHeader('Content-Type', 'application/json');
         $curl->setHeader('Accept', 'application/json');
         $curl->setHeader('Signature', $signature);
+        $curl->post( $url, $data );
+
+        if ($curl->error ) {
+            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage );
+        } else {
+            return $curl->response;
+        }
+    }
+
+    /**
+     * Calls a Xettle API Get function.
+     *
+     * @param string $url
+     * @param string $signature
+     * @param array $data
+     * @return array
+     * @throws XettleIOException
+     */
+    protected function upiget( $endpoint ){
+        $url            = $this->config['base_url'] . $endpoint;
+        $curl           = new Curl();
+        $curl->setBasicAuthentication($this->config['client_id'], $this->config['client_secret']);
+        $curl->setHeader('Content-Type', 'application/json');
+        $curl->setHeader('Accept', 'application/json');
+        $curl->get( $url );
+
+        if ($curl->error ) {
+            throw new XettleIOException( 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage );
+        } else {
+            return $curl->response;
+        }
+    }
+
+    /**
+     * Calls a Xettle API Get function.
+     *
+     * @param string $url
+     * @param string $signature
+     * @param array $data
+     * @return array
+     * @throws XettleIOException
+     */
+    protected function upipost( $endpoint, $signature, $data ){
+        $url            = $this->config['base_url'] . $endpoint;
+        $curl           = new Curl();
+        $curl->setBasicAuthentication($this->config['client_id'], $this->config['client_secret']);
+        $curl->setHeader('Content-Type', 'application/json');
+        $curl->setHeader('Accept', 'application/json');
         $curl->post( $url, $data );
 
         if ($curl->error ) {

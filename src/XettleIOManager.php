@@ -6,6 +6,7 @@ use XettleWrapper\Exceptions\XettleIOException;
 use XettleWrapper\Api\XettleIOAccount;
 use XettleWrapper\Api\XettleIOContacts;
 use XettleWrapper\Api\XettleIOOrders;
+use XettleWrapper\Api\XettleIOUPI;
 
 class XettleIOManager{
 
@@ -67,6 +68,15 @@ class XettleIOManager{
      */
     public function orders(){
         return new XettleIOOrders($this->config);
+    }
+
+    /**
+     * UPI API
+     *
+     * @return Devmithi\XettleIO\Api\XettleIOContact
+     */
+    public function upi(){
+        return new XettleIOUPI($this->config);
     }
 
     /**
