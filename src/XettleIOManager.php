@@ -38,7 +38,7 @@ class XettleIOManager{
         $this->config['base_url']         = ($config['env'] ?? 'test') == 'prod' ? self::PRODUCTION_BASE_URL :  self::SANDBOX_BASE_URL;
 
         // Credentials check
-        if (!array_key_exists('client_id', $this->config) || !array_key_exists('client_secret', $this->config) || !array_key_exists('salt', $this->config)) {
+        if (!array_key_exists('client_id', $this->config) || !array_key_exists('client_secret', $this->config)) {
             throw new XettleIOException('Credentials are required!');
         }
     }
