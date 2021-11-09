@@ -1,14 +1,12 @@
 {
-    "name": "devmithi/xettlewrapper",
+    "name": "devmithi/mycloudfulfillmentwrapper",
     "type": "library",
-    "description": "A Xettle wrapper (http://xettle.io)",
+    "description": "A MyCloudFulfillment wrapper (https://mycloudfulfillment.docs.apiary.io/)",
     "keywords": [
-        "xettle",
-        "xettleio",
-        "xettle.io",
-        "package",
-        "XettleIO",
-        "Xettleio"
+        "MyCloudFulfillment",
+        "MyCloudFulfillment.com",
+        "MyCloudFulfillment.apiary",
+        "package"
     ],
     "license": "MIT",
     "require": {
@@ -17,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "XettleWrapper\\": "src"
+            "MyfulfillmentWrapper\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "XettleWrapper\\": "tests"
+            "MyfulfillmentWrapper\\": "tests"
         }
     },
     "scripts": {
